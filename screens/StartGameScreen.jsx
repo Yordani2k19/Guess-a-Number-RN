@@ -18,6 +18,7 @@ import {
 } from '../components/core'
 
 import NumberContainer from '../components/NumberContainer'
+import { height } from 'styled-system';
 
 
 const StartGameScreen = props => {
@@ -26,9 +27,7 @@ const StartGameScreen = props => {
     const [ confirmed, setConfirmed ] = useState(false)
     
     const handleEnteredInput = inputText => {
-        setEnteredInput(inputText.replace(/^0-9/g, ''))
-        // validation
-        // ensures the used does not enter commas or decimals
+        setEnteredInput(inputText.replace(/^0-9/g, ''))       
     }
 
     const handleConfirmButton = () => {       
@@ -126,7 +125,8 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        alignSelf: 'center'
+        alignSelf: 'center',
+        height: '25%'
     },
 
     selectNumberText: {

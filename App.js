@@ -13,8 +13,6 @@ export default function App() {
   const [ dataLoaded, setDataLoaded ] = useState(false)
   const [ userNumber, setUserNumber ] = useState()      
 
-  // useful for loading data or fonts before rendering the app
-  // good for fonts, images, or functions that need to resolve before other code
   if(!dataLoaded) {
     return <AppLoading 
             startAsync={() => console.log('Started')}
@@ -24,9 +22,7 @@ export default function App() {
 
   const startGameHandler = selecterNumber => {
         setUserNumber(selecterNumber)         
-  }
-  
-  let content = <StartGameScreen onStartGame={startGameHandler} />  
+  }  
 
   const handleRestart = () => {
     setUserNumber(null)
@@ -47,7 +43,8 @@ export default function App() {
           title='Guess a Number' 
         />                        
 
-      {content}      
+      <StartGameScreen 
+        onStartGame={startGameHandler} />     
 
       </ScrollView>
     </ThemeProvider>

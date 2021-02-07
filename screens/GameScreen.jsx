@@ -8,7 +8,6 @@ import {
     Image 
 } from 'react-native'
 
-// icons provided by iconic in this case
 import { FontAwesome } from '@expo/vector-icons';
 
 import colors from '../components/constants/colors';
@@ -38,7 +37,7 @@ const generateRandomNumberBetween = (min, max, exclude) => {
 }
 
 const GameScreen = props => {
-    const { userChoice } = props      
+    const { userChoice, newGame } = props      
 
     let min = 1
     let max = 100  
@@ -117,10 +116,7 @@ const GameScreen = props => {
                 <Card>
                     <TouchableOpacity 
                         onPress={() => questionMarkAlert()}
-                        style={styles.questionMark}>
-                        {/* <Image source={require('../assets/question.png')} /> */}
-
-                        {/* Icons made easy */}
+                        style={styles.questionMark}>                        
                         <FontAwesome name="question-circle-o" size={24} color={colors.secondary} />
                     </TouchableOpacity>
                     
@@ -135,9 +131,7 @@ const GameScreen = props => {
 
                     <View style={styles.newGameContainer}>
                         <Button 
-                        onPress={() => {                            
-                            props.newGame()
-                        }}
+                        onPress={() => newGame()}
                         style={styles.newGameButton}>
                             New Game
                         </Button>
@@ -204,15 +198,3 @@ const styles = StyleSheet.create({
 })
 
 export default GameScreen
-
-
-// const renderGameList = (guess, rounds) => {
-//     return(
-//         <View key={guess}>
-//             <Text>{guess}</Text>
-//             <Text>{rounds}</Text>
-//         </View>
-//     )
-// }
-
-// guessArr.map(guess, index => renderGameList(guess, pastGuesses))
