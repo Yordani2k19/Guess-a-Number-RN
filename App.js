@@ -1,21 +1,61 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet } from 'react-native'
+import AppLoading from 'expo-app-loading'
 
-export default function App() {
+import { theme } from "./components/theme"
+import { ThemeProvider } from "styled-components/native"
+
+import MainHeader from './components/MainHeader'
+import StartGameScreen from './screens/StartGameScreen'
+import GameScreen from './screens/GameScreen'
+
+export default function App() {  
+  const [ dataLoaded, setDataLoaded ] = useState(false)
+  const [ userNumber, setUserNumber ] = useState()      
+
+  // useful for loading data or fonts before rendering the app
+  // good for fonts, images, or functions that need to resolve before other code
+  if(!dataLoaded) {
+    return <AppLoading 
+            startAsync={() => console.log('Started')}
+            onFinish={() => setDataLoaded(true)}
+            onError={(err) => console.log('App Loading ERROR: ', err)}/>
+  }
+
+  const startGameHandler = selecterNumber => {
+        setUserNumber(selecterNumber)         
+  }
+  
+  let content = <StartGameScreen onStartGame={startGameHandler} />  
+
+  const handleRestart = () => {
+    setUserNumber(null)
+  }
+
+  if (userNumber) {
+    return <GameScreen
+      newGame={handleRestart}
+      userChoice={userNumber}       
+      />
+  } 
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider theme={theme}>
+      <ScrollView style={styles.appContainer}>
+
+        <MainHeader 
+          title='Guess a Number' 
+        />                        
+
+      {content}      
+
+      </ScrollView>
+    </ThemeProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  appContainer: {    
+    height: '100%'
   },
-});
+})
